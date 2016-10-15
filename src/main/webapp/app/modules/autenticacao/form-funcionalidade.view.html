@@ -1,0 +1,48 @@
+
+<!-- Content Header (Page header) -->
+<meta charset="utf-8">
+<section class="content-header" >
+	<h1>Funcionalidade</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- Default box -->
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<label>Ordem exibição</label> 
+					<input type="text" class="form-control"	ng-model="funcionalidade.ordemExibicao">
+				</div>
+				<div class="col-xs-3">
+					<label>Descrição</label> 
+					<input type="text" class="form-control"	ng-model="funcionalidade.descricao">
+				</div>
+				<div class="col-xs-3">
+					<label>Descrição Resumida</label> 
+					<input type="text" class="form-control"	ng-model="funcionalidade.descricaoResumida">
+				</div>
+				<div class="col-xs-3">
+					<label>URL</label> 
+					<input type="text" class="form-control"	ng-model="funcionalidade.url">
+				</div>
+				<div class="col-xs-3">
+					<label>Modulo</label> 
+					<select 
+					    style = "width: 100%;" 
+					    class = "form-control" 
+					    ng-options="modulo.nome for modulo in modulos track by modulo.id"
+					    auto-complete 
+      					ng-model="funcionalidade.modulo"></select>
+				</div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary"	ng-click="voltar()">Voltar</button>
+			<button type="submit" class="btn btn-primary"	ng-click="fnSalvarFuncionalidade()">Salvar</button>
+		</div>
+		<!-- /.box-footer-->
+	</div>
+</section>
+<!-- /.content -->

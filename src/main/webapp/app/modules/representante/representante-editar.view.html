@@ -1,0 +1,230 @@
+
+<meta charset="utf-8">
+<section class="content-header">
+	<h1>Representante</h1>
+</section>
+
+<section class="content">
+	<form name="formularioEditacao" ng-submit="fnSalvar()" novalidate>
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="row">
+	    			<div class="col-xs-6">
+    					<label>Nome <span class="text-danger">*</span></label> 
+    					<input 
+    						type         = "text"
+    	     				size         = "40"
+				    	    class        = "form-control"
+			    		    ng-model     = "representante.nome"
+	         				required
+	         				ng-maxlength = "40" />
+    				</div>
+		    		<div class="col-xs-3">
+	    				<label>Fabricante</label>
+	    				 <input 
+							   type              = "text" 
+							   class             = "form-control" 
+							   ng-model          = "representante.fabricante"
+							   placeholder       = "nome do fabricante"
+							   uib-typeahead     = "fabricante as fabricante.nome for fabricante in fnPesquisaFabricantes($viewValue)"
+							   ng-disabled="{{representante.id != undefined}}"
+							/> 
+						
+				    </div>
+			    </div>
+			    <div class="row">
+			        <div class="col-xs-3">
+						<label>Usuário/Login</label> 
+						<input type="text" class="form-control"	ng-model="representante.usuario.login" ng-disabled="{{representante.id != undefined}}" maxlength="40">
+					</div>
+					<div class="col-xs-3" ng-show="{{representante.id == undefined}}">
+						<label>Senha</label> 
+						<input type="password" class="form-control"	ng-model="representante.usuario.senha">
+					</div>
+					<div class="col-xs-3" ng-show="{{representante.id == undefined}}">
+						<label>Confirmar Senha</label> 
+						<input type="password" class="form-control"	ng-model="representante.usuario.confirmarSenha">
+					</div>
+					
+			    </div>
+			    <div class="row">
+				    <div class="col-xs-6">
+							<label>Email</label> 
+							<input type="email" class="form-control"	ng-model="representante.usuario.email">
+					</div>
+					 <div class="col-xs-3">
+                        <label>Data limite para acesso</label>
+                        <p class="input-group">
+                            <input 
+                                type     = "text" 
+                                class    = "form-control"
+                                is-open  = "datePickerPopup.opened"
+                                required
+                                ng-model   = "representante.usuario.dataValidadeLimite" 
+                                close-text ="Fechar"
+                                show-button-bar      = "false" 
+                                datepicker-options   = "dateOptions"
+                                uib-datepicker-popup = "dd/MM/yyyy" /> 
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="fnOpen()">
+                                    <i class="glyphicon glyphicon-calendar" style="top: 2px;"></i>
+                                </button>
+                            </span>
+                         </p>
+				    </div>
+				</div>
+			    
+			</div>
+		</div>
+
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="row">
+				    <div class="col-xs-9">
+	    				<label>Produto</label> 
+						<div class="input-group">
+						    
+						    <input 
+							   type              = "text" 
+							   class             = "form-control" 
+							   ng-model          = "oProdutoSelecionado"
+							   placeholder       = "busca por descricao ou ean"
+							   uib-typeahead     = "produto as produto.descricao for produto in fnPesquisaProdutos($viewValue)"
+							   typeahead-on-select="fnAddProduto()"
+							/> 
+							
+	      				    <div class="input-group-btn">
+								<a class="btn btn-primary" ng-click="fnAddProduto()" ng-disabled="!representante.fabricante">
+								  <span class="glyphicon glyphicon-plus" style="top: 2px;"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> 
+                <div class="row">
+                  	<div class="col-xs-9">
+						<label>Lista de Produtos do Representante</label>
+
+                  	    <div style = "height: 200px" ui-grid = "gridProdutoOptions"></div>
+                  	</div>
+                </div>
+			</div>
+		</div>
+		
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="row">
+				    <div class="col-xs-9">
+	    				<label>Médico</label> 
+						
+						<div class="input-group">
+						   
+						<input 
+						   type              = "text" 
+						   class             = "form-control" 
+						   ng-model          = "oMedicoSelecionado"
+						   placeholder       = "nome ou crm"
+						   uib-typeahead     = "medico as medico.nome for medico in fnPesquisaMedicos($viewValue)"
+						   typeahead-on-select="fnAddMedico()"
+						   typeahead-loading = "isCarregando"/> 
+						<i ng-show="isCarregando" class="glyphicon glyphicon-refresh"></i>
+										 
+							
+	      				    <div class="input-group-btn">
+								<a class="btn btn-primary" ng-click="fnAddMedico()">
+								  <span class="glyphicon glyphicon-plus" style="top: 2px;"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> 
+                <div class="row">
+                  	<div class="col-xs-9">
+						<label>Lista de Médicos do Representante</label>
+                  	    <div style = "height: 250px" ui-grid = "gridMedicoOptions"></div>
+                  	</div>
+                </div>
+			</div>
+		</div>
+		
+		
+		<div class="box box-primary"> 
+			<div class="box-body">
+				<div class="row">
+				    <div class="col-xs-9">
+	    				<label>Lojas </label> 
+						<div class="input-group">
+						    
+						    <input 
+								   type              = "text" 
+								   class             = "form-control" 
+								   ng-model          = "oLojaSelecionado"
+								   placeholder       = "nome da loja"
+								   uib-typeahead     = "loja as loja.nome for loja in fnPesquisaLojas($viewValue)"
+								   typeahead-on-select="fnAddLoja()"
+							/> 
+							
+						
+						   
+	      				    <div class="input-group-btn">
+								<a class="btn btn-primary" ng-click="fnAddLoja()">
+								  <span class="glyphicon glyphicon-plus" style="top: 2px;"></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br> 
+                <div class="row">
+                  	<div class="col-xs-9">
+						<label>Lista de Lojas do Representante</label>
+                  	    <div style = "height: 200px" ui-grid = "gridLojasOptions"></div>
+                  	</div>
+                </div>
+			</div>
+		</div>
+
+		<div class="box box-primary">
+			<div class="box-body">
+			</div><!-- /.box-body -->
+
+			<div class="box-footer">
+				<button type="button" class="btn btn-primary" ng-click="voltar()">Voltar</button>
+				<button type="button" class="btn btn-primary" ng-click="fnTrocarSenha()"  ng-disabled="{{representante.id == undefined}}">Trocar Senha</button>
+				<button type="submit" class="btn btn-primary" ng-disabled="formularioEditacao.$invalid">Salvar</button>
+			</div><!-- /.box-footer-->
+		</div>
+	</form>
+</section><!-- /.content -->
+<script type="text/ng-template" id="modal-trocar-senha-template.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="fnModalCancel()" aria-label="Close">
+            <span aria-hidden="true">x</span>
+        </button>
+        
+        <h4 class="modal-title">Trocar Senha</h4>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-sm-4">
+                <label>Nova Senha</label> 
+                <input type = "password" ng-model = "representante.usuario.senha"  required class = "form-control" /> 
+            </div>
+			<div class="col-sm-4">
+                <label>Confirmar Senha</label> 
+                <input type = "password" ng-model = "representante.usuario.confirmarSenha"  required class = "form-control" /> 
+            </div>
+       </div>
+  		<div class="row">
+		<br/>
+		</div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="fnModalOk()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="fnModalCancel()">Cancel</button>
+    </div>
+</script>

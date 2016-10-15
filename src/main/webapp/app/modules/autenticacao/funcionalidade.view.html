@@ -1,0 +1,60 @@
+
+<!-- Content Header (Page header) -->
+<meta charset="utf-8">
+<section class="content-header" ng-init="fnBuscarFuncionalidade()">
+	<h1>Funcionalidade</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- Default box -->
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Filtro</h3>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool"	data-widget="collapse" data-toggle="tooltip" title="Collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<label>Nome</label> 
+					<input type="text"  class="form-control" ng-keyup="$event.keyCode == 13 && fnBuscar()"	ng-model="filtro.nome">
+				</div>
+				<div class="col-xs-3">
+					<label>Modulo</label> 
+					<select style="width: 100%;" class="form-control select2" 
+					ng-options="modulo.nome for modulo in modulos track by modulo.id"
+      					ng-model="filtro.modulo" auto-complete></select>
+				</div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary"	ng-click="fnNovoFuncionalidade()">Novo</button>
+			<button type="submit" class="btn btn-primary"	ng-click="fnBuscarFuncionalidade()">Consultar</button>
+		</div><!-- /.box-footer-->
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+			<div id="fullDataTable_filter" class="dataTables_filter" style="display:none;">
+				<label>
+					<input 
+					    type          = "search" 
+					    class         = "form-control input-sm" 
+					    ng-model      = "filterGrid"
+					    ng-change     ="fnAplicarFiltro()" 
+					    placeholder   = "Filtrar registros ..."
+					    aria-controls = "fullDataTable" />
+				</label>
+			</div>
+
+			<div 
+			    ui-grid = "gridOptions" 
+			    ui-grid-pagination
+			    ui-grid-resize-columns>
+			</div>
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+</section><!-- /.content -->

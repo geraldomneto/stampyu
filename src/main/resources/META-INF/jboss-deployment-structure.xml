@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<jboss-deployment-structure>
+	<deployment>
+		<exclude-subsystems>
+			<subsystem name="resteasy" />
+		</exclude-subsystems>
+		<exclusions>
+			<module name="org.apache.commons.logging" />
+			<module name="org.jboss.as.jaxrs" />
+			<module name="org.jboss.resteasy.resteasy-jaxrs" />
+			<module name="org.jboss.resteasy.resteasy-cdi" />
+		</exclusions>
+	</deployment>
+</jboss-deployment-structure>

@@ -1,0 +1,63 @@
+<meta charset="utf-8">
+<section class="content-header">
+	<h1>Estoque</h1>
+</section>
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Filtro</h3>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool"	data-widget="collapse" data-toggle="tooltip" title="Collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-5">
+					<label>Produto</label> 
+					 <input 
+							   type              = "text" 
+							   class             = "form-control" 
+							   ng-model          = "filtro.produto"
+							   placeholder       = "busca por descricao ou ean"
+							   uib-typeahead     = "produto as produto.descricao for produto in fnPesquisaProdutos($viewValue)"
+							/> 
+					
+				</div>
+				<div class="col-xs-3">
+					<label>Loja</label>
+					<input 
+								   type              = "text" 
+								   class             = "form-control" 
+								   ng-model          = "filtro.loja"
+								   placeholder       = "nome da loja"
+								   uib-typeahead     = "loja as loja.nome for loja in fnPesquisaLojas($viewValue)"
+							/> 
+					
+				</div>
+				<div class="col-xs-3">
+					<label>Quantidade maior que:</label> 
+					<input type="number"  class="form-control"	ng-model="filtro.estoqueProduto" maxlength="20">
+				</div>
+				
+			</div>
+		</div><!-- /.box-body -->
+		<div class="box-footer">
+		    <!-- 
+			<button type="submit" class="btn btn-primary"	ng-click="fnNovo()">Novo</button>
+		     -->
+			<button type="submit" class="btn btn-primary"	ng-click="fnBuscar()">Consultar</button>
+		</div><!-- /.box-footer-->
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+
+			<div 
+			    ui-grid = "gridProdutoLojaOptions" 
+			    ui-grid-pagination
+			    ui-grid-resize-columns></div>
+
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+</section><!-- /.content -->

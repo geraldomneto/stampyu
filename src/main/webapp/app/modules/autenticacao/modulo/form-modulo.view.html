@@ -1,0 +1,31 @@
+
+<!-- Content Header (Page header) -->
+<meta charset="utf-8">
+<section class="content-header" >
+	<h1>Modulo</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- Default box -->
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<label>Ordem exibição</label> 
+					<input type="text" class="form-control"	ng-model="modulo.ordemExibicao">
+				</div>
+				<div class="col-xs-3">
+					<label>Nome</label> 
+					<input type="text" class="form-control"	ng-model="modulo.nome">
+				</div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary"	ng-click="voltar()">Voltar</button>
+			<button type="submit" class="btn btn-primary"	ng-click="fnSalvarModulo()">Salvar</button>
+		</div>
+		<!-- /.box-footer-->
+	</div>
+</section>
+<!-- /.content -->

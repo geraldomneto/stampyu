@@ -1,0 +1,53 @@
+.top25 {
+	margin-top: 25px;
+}
+
+/**
+ * Angular Form styles
+ */
+input.ng-dirty.ng-invalid {
+  border: 1px solid red;
+}
+
+
+.btn-upload {
+    width         : 100%;
+    cursor        : pointer;
+    border        : 1px solid #ccc;
+    display       : inline-block;
+    padding       : 0.625rem 1.25rem;
+    overflow      : hidden;
+    font-size     : 1.25rem;
+    margin-top    : 10px;
+    font-weight   : 700;
+    white-space   : nowrap;
+    text-overflow : ellipsis;
+}
+
+.btn-upload input[type="file"] {
+  opacity: 0;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0; 
+}
+
+.img-thumbnail {
+  width  : 40%;
+  margin : 5%;
+  background-image: none;
+}
+
+.media-preview {
+  width: 100%;
+  height: 200px;
+}
+
+.custom-preview {
+  width       : 100%;
+  border      : 2px solid #E6E6E6;
+  min-height  : 50px;
+  background-color : #F5F5F5;
+}

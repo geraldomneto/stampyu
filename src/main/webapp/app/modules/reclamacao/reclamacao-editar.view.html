@@ -1,0 +1,155 @@
+
+<meta charset="utf-8">
+<section class="content-header">
+	<h1>Reclamação</h1>
+</section>
+
+<section class="content">
+	<form name="formularioEditacao" ng-submit="fnSalvar()" novalidate>
+
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Motivo Reclamação</label>
+						<select style="width: 100%;" class="form-control"
+							ng-model="reclamacao.motivoReclamacao" 
+							ng-options="motivoReclamacao as motivoReclamacao.descricao for motivoReclamacao in aMotivoReclamacoes track by motivoReclamacao.id"
+							auto-complete ng-disabled="{{reclamacao.id != undefined}}">
+						</select>
+					</div>
+					<div class="col-xs-3">
+						<div class="form-group" >
+							<label>Data Reclamação</label>
+							<p class="input-group">
+								<input type="text" class="form-control" ng-disabled="disabledDataReclamacao"
+									is-open="datePickerPopup.opened"
+									ng-model="reclamacao.dataReclamacao" close-text="Fechar"
+									datepicker-options="dateOptions" uib-datepicker-popup="dd/MM/yyyy"   /> 
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default"
+											ng-click="fnOpen()">
+											<i class="glyphicon glyphicon-calendar" style="top: 2px;"></i>
+										</button>
+									</span>
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<label>Representante</label> <select
+							style="width: 100%;" class="form-control"
+							ng-model="reclamacao.representante" 
+							ng-options="representante as representante.nome for representante in aRepresentantes track by representante.id"
+							auto-complete ng-disabled="{{reclamacao.id != undefined}}">
+						</select>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Produto</label> <select
+							style="width: 100%;" class="form-control"
+							ng-model="reclamacao.produto" 
+							ng-options="produto as produto.descricao for produto in aProdutos track by produto.id"
+							auto-complete ng-disabled="{{reclamacao.id != undefined}}">
+						</select>
+					</div>
+					<div class="col-xs-3">
+						<label>Loja</label> <select
+							style="width: 100%;" class="form-control"
+							ng-model="reclamacao.loja" 
+							ng-options="loja as loja.nome for loja in aLojas track by loja.id"
+							auto-complete ng-disabled="{{reclamacao.id != undefined}}">
+						</select>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="col-xs-9">
+						<label>Reclamação</label>
+						<textarea rows="3" class="form-control"
+							ng-model="reclamacao.descricao" ng-="false"
+							ng-maxlength="500" ng-disabled="{{reclamacao.id != undefined}}">
+						</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="row">
+					<div class="col-xs-3">
+						<div class="form-group">
+							<label>Data Resposta <span class="text-danger">*</span></label>
+							<p class="input-group">
+								<input type="text" class="form-control" disabled
+									is-open="datePickerPopup2.opened"
+									ng-model="reclamacao.dataResposta" close-text="Fechar"
+									datepicker-options="dateOptions" uib-datepicker-popup="dd/MM/yyyy"  /> <span
+									class="input-group-btn">
+									<button type="button" class="btn btn-default"
+										ng-click="fnOpen2()">
+										<i class="glyphicon glyphicon-calendar" style="top: 2px;"></i>
+									</button>
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="col-xs-3">
+						<label>Responsável Resposta<span class="text-danger">*</span></label>
+						<select style="width: 100%;" class="form-control" disabled
+							ng-model="reclamacao.responsavelResposta" 
+							ng-options="usuario as usuario.nome for usuario in aUsuarios track by usuario.id"
+							auto-complete >
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-9">
+						<label>Resposta <span class="text-danger">*</span></label>
+						<textarea rows="3" class="form-control" ng-disabled="{{reclamacao.descricaoResposta != undefined}}"
+							ng-model="reclamacao.descricaoResposta" ng-="true"
+							ng-maxlength="500">
+							</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="row">
+					<div class="col-xs-3">
+						<label>Indicador</label> <br>
+						<img src="./app/dist/img/bom.png" ng-if="reclamacao.indicadorNivelSatisfacao === 1" />
+						<img src="./app/dist/img/regular.png" ng-if="reclamacao.indicadorNivelSatisfacao === 2" />
+						<img src="./app/dist/img/ruim.png" ng-if="reclamacao.indicadorNivelSatisfacao === 3" />
+						
+					</div>
+					<div class="col-xs-3">
+						<label>Motivo Insatisfação Resposta<span
+							class="text-danger">*</span></label> <select style="width: 100%;"
+							class="form-control"
+							ng-model="reclamacao.motivoInsatisfacaoResposta" 
+							ng-options="motivoInsatisfacao as motivoInsatisfacao.descricao for motivoInsatisfacao in aMotivoInsatisfacoes track by motivoInsatisfacao.id"
+							auto-complete ng-disabled="{{reclamacao.id != undefined}}">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="box box-primary">
+			<div class="box-body"></div>
+			<!-- /.box-body -->
+
+			<div class="box-footer">
+				<button type="button" class="btn btn-primary" ng-click="voltar()">Voltar</button>
+				<button type="submit" class="btn btn-primary" ng-disabled="formularioEditacao.$invalid" ng-show="{{reclamacao.descricaoResposta == undefined}}" >Responder</button>
+			</div>
+			<!-- /.box-footer-->
+		</div>
+	</form>
+</section>
+<!-- /.content -->

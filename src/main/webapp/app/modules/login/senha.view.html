@@ -1,0 +1,50 @@
+
+<div class="login-box">
+
+   <div class="login-logo">
+       <a>
+           <img alt="FrameworkSystem" src="./app/dist/img/logo-black-Framework.png" style = "max-width: 75%" />
+       </a>
+   </div> <!-- /.login-logo -->
+
+   <div class="login-box-body">
+
+      <p class="login-box-msg">
+          Informe e-mail para recuperar sua senha
+      </p>
+
+      <form>
+
+         <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="Usuário" ng-model="usuario.email" ng-required="true">
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+         </div>
+
+         <div class="row">
+            <div class="col-xs-8"></div> 
+            <div class="col-xs-4">
+               <button 
+                   type = "submit" 
+                   class = "btn btn-primary btn-block btn-flat" 
+                   ng-click = "fnRecuperarSenha()">Enviar
+               </button>
+            </div> <!-- /.col -->
+
+         </div>
+      </form>
+      <!-- /.social-auth-links -->
+      <a href="#/login">Voltar</a><br>
+   </div>
+   <!-- /.login-box-body -->
+   <div growl></div>
+</div>
+
+<script>
+   $(function () {
+     $('input').iCheck({
+       checkboxClass: 'icheckbox_square-blue',
+       radioClass: 'iradio_square-blue',
+       increaseArea: '20%' // optional
+     });
+   });
+</script>

@@ -1,0 +1,64 @@
+<meta charset="utf-8">
+<section class="content-header">
+	<h1>Mensagem</h1>
+</section>
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Filtro</h3>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool"
+					data-widget="collapse" data-toggle="tooltip" title="Collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-4">
+					<label>Título</label> 
+					<input type="text" class="form-control"	ng-model="filtro.titulo" maxlength="10">
+				</div>
+				<div class="col-xs-4">
+					<label>Fabricante </label> 
+					
+						<input 
+							   type              = "text" 
+							   class             = "form-control" 
+							   ng-model          = "filtro.fabricante"
+							   placeholder       = "nome do fabricante"
+							   uib-typeahead     = "fabricante as fabricante.nome for fabricante in fnPesquisaFabricantes($viewValue)"
+							/> 
+				</div>
+				<div class="col-xs-4">
+					<label>Representante </label> 
+					
+					<select
+						style="width: 100%;" class="form-control"
+						ng-model="filtro.representanteId" required
+						ng-options="representante.id as representante.nome for representante in aRepresentantes track by representante.id"
+						auto-complete>
+					</select>
+				</div>
+				
+			</div>
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary" ng-click="fnNovo()">Novo</button>
+			<button type="submit" class="btn btn-primary" ng-click="fnBuscar()">Consultar</button>
+		</div>
+		<!-- /.box-footer-->
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+
+			<div ui-grid="gridMensagemOptions" ui-grid-pagination
+				ui-grid-resize-columns></div>
+
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
+<!-- /.content -->

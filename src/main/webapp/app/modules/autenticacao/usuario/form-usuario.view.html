@@ -1,0 +1,94 @@
+
+<!-- Content Header (Page header) -->
+<meta charset="utf-8">
+<section class="content-header" >
+	<h1>Usuario</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- Default box -->
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<label>Nome</label> 
+					<input type="text" class="form-control"	ng-model="usuario.nome">
+				</div>
+				<div class="col-xs-6">
+					<label>E-mail</label> 
+					<input type="email" class="form-control" ng-model="usuario.email">
+				</div>
+				<div class="col-xs-3">
+					<label>Código Interno</label> 
+					<input type="text" class="form-control" ng-model="usuario.codigo">
+				</div>
+			</div>
+			<div class="row">	
+				<div class="col-xs-3">
+					<label>Login</label> 
+					<input type="text" class="form-control"	ng-model="usuario.login">
+				</div>
+				<div class="col-xs-3" ng-show="{{usuario.id == undefined}}">
+					<label>Senha</label> 
+					<input type="password" class="form-control"	ng-model="usuario.senha">
+				</div>
+				
+				<div class="col-xs-3">
+					<label><input type="checkbox" ng-model="usuario.ativo"> Ativo</label> 
+				</div>
+				<div class="col-xs-3">
+				<label>Tipo Usuario</label>
+ 					<select class="form-control"
+ 					        ng-options="tp.descricao for tp in tiposUsuario track by tp.id"
+       					    ng-model="usuario.tipoUsuario"></select>
+ 				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="row">
+			    <div class="col-xs-6">
+	   				<label>Perfis</label> 
+					<div class="input-group">
+					    <select 
+					        style      = "width: 100%;" 
+					        class      = "form-control" 
+	     					ng-model   = "oPerfilSelecionado"
+					        ng-options = "perfil as perfil.nome for perfil in aPerfils track by perfil.id"
+					        auto-complete>
+	     				    </select>
+	     				    <div class="input-group-btn">
+							<a class="btn btn-primary" ng-click="fnAddPerfil()">
+							  <span class="glyphicon glyphicon-plus" style="top: 2px;"></span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br> 
+	              <div class="row">
+	                	<div class="col-xs-6">
+					<label>Lista de Perfis</label>
+	
+	                	    <div style = "height: 200px" ui-grid = "gridPerfisOptions"></div>
+	                	</div>
+	              </div>
+		</div>
+	</div>
+		
+		<div class="box box-primary">
+		<div class="box-body">
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary"	ng-click="voltar()">Voltar</button>
+			<button type="submit" class="btn btn-primary"	ng-click="fnSalvarUsuario()">Salvar</button>
+		</div>
+		<!-- /.box-footer-->
+	</div>
+   	<script>
+   		$(".select2").select2();
+   	</script> 
+</section>

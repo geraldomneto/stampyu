@@ -1,0 +1,79 @@
+
+<!-- Content Header (Page header) -->
+<meta charset="utf-8">
+<section class="content-header" ng-init="fnBuscarUsuario()">
+	<h1>Usuario</h1>
+</section>
+<!-- Main content -->
+<section class="content">
+	<!-- Default box -->
+	<div class="box box-primary">
+		<div class="box-header with-border">
+			<h3 class="box-title">Filtro</h3>
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool"	data-widget="collapse" data-toggle="tooltip" title="Collapse">
+					<i class="fa fa-minus"></i>
+				</button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-xs-3">
+					<label>Login</label> 
+					<input type="text" class="form-control"	ng-keyup="$event.keyCode == 13 && fnBuscar()" ng-model="filtro.login">
+				</div>
+				<div class="col-xs-3">
+					<label>Nome</label> 
+					<input type="text" class="form-control" ng-keyup="$event.keyCode == 13 && fnBuscar()"	ng-model="filtro.nome">
+				</div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary"	ng-click="fnNovoUsuario()">Novo</button>
+			<button type="submit" class="btn btn-primary"	ng-click="fnBuscarUsuario()">Consultar</button>
+		</div>
+		<!-- /.box-footer-->
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+
+			<div id="fullDataTable_filter" class="dataTables_filter" style="display:none;">
+				<label>
+					<input 
+					    type          = "search" 
+					    class         = "form-control input-sm" 
+					    ng-model      = "filterGrid"
+					    ng-change     ="fnAplicarFiltro()" 
+					    placeholder   = "Filtrar registros ..."
+					    aria-controls = "fullDataTable" />
+				</label>
+			</div>
+
+			<div 
+			    ui-grid = "gridOptions" 
+			    ui-grid-pagination
+			    ui-grid-resize-columns></div>
+		</div><!-- /.box-body -->
+	</div><!-- /.box --> 
+</section><!-- /.content -->
+
+<script type="text/ng-template" id="modal-template.html">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="fnModalCancel()" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+			<h4 class="modal-title">Excluir</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+				<div class="col-sm-9">
+					Deseja realmente excluir este registro?
+				</div>
+			</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="fnModalOk()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="fnModalCancel()">Cancel</button>
+        </div>
+</script>
