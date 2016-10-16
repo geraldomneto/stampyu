@@ -8,6 +8,7 @@
 
         var _rs = $resource(_sUrlBase + 'rest/login/:action', {}, {
             fazerLogin : {
+            	params  : {action: 'login-admin'},
             	method  : 'POST'
             },
             recuperarSenha : {

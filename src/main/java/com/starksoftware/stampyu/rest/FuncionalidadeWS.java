@@ -1,7 +1,4 @@
-package com.starksoftware.library.security.rest;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.starksoftware.stampyu.rest;
 
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -17,9 +14,10 @@ import javax.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 
 import com.starksoftware.library.abstracts.rest.AbstractResponse;
-import com.starksoftware.library.security.dto.ModuloDTO;
-import com.starksoftware.library.security.model.business.ModuloFacade;
-import com.starksoftware.library.security.model.entity.Modulo;
+import com.starksoftware.library.security.dto.FuncionalidadeDTO;
+import com.starksoftware.library.security.model.annotation.Secured;
+import com.starksoftware.library.security.model.business.FuncionalidadeFacade;
+import com.starksoftware.library.security.model.entity.Funcionalidade;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,32 +25,26 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value = "modulo")
-@Path("/modulo")
-// @Secured
-public class ModuloWS extends AbstractResponse {
+@Api(value = "funcionalidade")
+@Path("/funcionalidade")
+@Secured
+public class FuncionalidadeWS extends AbstractResponse {
 
-	private static Logger LOG = Logger.getLogger(ModuloWS.class.getName());
+	private static Logger LOG = Logger.getLogger(FuncionalidadeWS.class.getName());
 
 	@Inject
-	private ModuloFacade moduloService;
+	private FuncionalidadeFacade funcionalidadeService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Recupera todos os modulos de menu do sistema")
+	@ApiOperation(value = "Recupera todas funcionalidades do sistema", notes = "Todas as funcionalidades")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response buscarModulo() {
+	public Response buscarFuncionalidade() {
 		try {
 
-			List<Modulo> listModulo = moduloService.buscarTodos();
-			List<ModuloDTO> retorno = new ArrayList<>();
-			for (Modulo modulo : listModulo) {
-				retorno.add(new ModuloDTO(modulo));
-			}
-			return this.ok(retorno);
-
+			return this.ok(funcionalidadeService.pesquisarTodasFuncionalidades());
 		} catch (Exception e) {
 			LOG.error(e.getLocalizedMessage());
 			return this.internalError(null);
@@ -62,21 +54,14 @@ public class ModuloWS extends AbstractResponse {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Recupera modulo de menu do sistema por id", notes = "Busca por ID")
+	@ApiOperation(value = "Recupera todas funcionalidades do sistema por ID")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response buscarModuloId(@ApiParam(value = "id") @PathParam("id") String strId) {
+	public Response buscarFuncionalidadePorId(@ApiParam(value = "id") @PathParam("id") Long id) {
 		try {
 
-			Long id = null;
-			try {
-				id = Long.parseLong(strId);
-			} catch (Exception ex) {
-				return this.error("Informe um ID numerico válido");
-			}
-
-			return this.ok(new ModuloDTO(moduloService.buscarModuloPorId(id)));
+			return this.ok(new FuncionalidadeDTO(funcionalidadeService.buscarPorId(id)));
 
 		} catch (Exception e) {
 			LOG.error(e.getLocalizedMessage());
@@ -86,25 +71,32 @@ public class ModuloWS extends AbstractResponse {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Cadastro de modulo", notes = "'ordemExibicao' e 'nome' são obrigatórios")
+	@ApiOperation(value = "Cadastro de funcionalidade", notes = "")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Criado com sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 406, message = "Erro de validação interna"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response cadastroModulo(@ApiParam(value = "JSON", required = true) Modulo modulo) {
+	public Response cadastroFuncionalidade(@ApiParam(value = "JSON", required = true) Funcionalidade funcionalidade) {
 		try {
-			if (modulo.getNome() == null) {
-				return this.error("Informe o nome");
+			if (funcionalidade.getModulo() == null) {
+				return this.error("Informe o modulo");
 			}
-
-			if (modulo.getOrdemExibicao() == null) {
+			if (funcionalidade.getOrdemExibicao() == null) {
 				return this.error("Informe a ordem de exibição");
 			}
+			if (funcionalidade.getDescricao() == null) {
+				return this.error("Informe a descrição");
+			}
+			if (funcionalidade.getDescricaoResumida() == null) {
+				return this.error("Informe a descrição resumida");
+			}
 
-			moduloService.salvarModulo(modulo);
+			funcionalidade.setItemMenu(true);
+			funcionalidadeService.salvarFuncionalidade(funcionalidade);
 
-			return this.created("Modulo cadastrado com sucesso!");
+			return this.created("Funcionalidade cadastrada com sucesso!");
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOG.error(e.getLocalizedMessage());
 			return this.internalError(null);
 		}
@@ -112,25 +104,32 @@ public class ModuloWS extends AbstractResponse {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Atualiza modulo")
+	@ApiOperation(value = "Atualização de funcionalidade", notes = "")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 406, message = "Erro de validação interna"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response atualizaModulo(@ApiParam(value = "JSON", required = true) Modulo modulo) {
+	public Response atualizaFuncionalidade(@ApiParam(value = "JSON", required = true) Funcionalidade funcionalidade) {
 		try {
-			if (modulo.getNome() == null) {
-				return this.error("Informe o nome");
+			if (funcionalidade.getModulo() == null) {
+				return this.error("Informe o modulo");
 			}
-
-			if (modulo.getOrdemExibicao() == null) {
+			if (funcionalidade.getOrdemExibicao() == null) {
 				return this.error("Informe a ordem de exibição");
 			}
+			if (funcionalidade.getDescricao() == null) {
+				return this.error("Informe a descrição");
+			}
+			if (funcionalidade.getDescricaoResumida() == null) {
+				return this.error("Informe a descrição resumida");
+			}
 
-			moduloService.salvarModulo(modulo);
+			funcionalidade.setItemMenu(true);
+			funcionalidadeService.salvarFuncionalidade(funcionalidade);
 
-			return this.ok("Modulo atualizado com sucesso");
+			return this.created("Funcionalidade salvo com sucesso!");
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOG.error(e.getLocalizedMessage());
 			return this.internalError(null);
 		}
@@ -139,20 +138,28 @@ public class ModuloWS extends AbstractResponse {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Remove modulo do sistema", notes = "Exclusão é lógica")
+	@ApiOperation(value = "Remove funcionalidade do sistema", notes = "Exclusão é lógica")
 	@ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response deleteModulo(@ApiParam(value = "ID") @PathParam("id") Long id) {
+	public Response deleteFuncionalidade(@ApiParam(value = "ID") @PathParam("id") String strId) {
 		try {
 
-			Modulo modulo = moduloService.buscarModuloPorId(id);
-			if (modulo == null) {
-				return this.error("Modulo não encontrado");
+			Long id = null;
+			try {
+				id = Long.parseLong(strId);
+			} catch (Exception ex) {
+				return this.error("Informe um ID numerico válido");
 			}
-			moduloService.excluirModulo(modulo);
+
+			Funcionalidade funcionalidade = funcionalidadeService.buscarPorId(id);
+			if (funcionalidade == null) {
+				return this.error("Funcionalidade não encontrada");
+			}
+			funcionalidadeService.excluirFuncionalidade(funcionalidade);
 			return this.successWithoutBody();
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOG.error(e.getLocalizedMessage());
 			return this.internalError(null);
 		}

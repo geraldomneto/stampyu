@@ -10,6 +10,7 @@ public class UsuarioDTO extends BaseDTO {
 	private String deviceToken;
 	private String deviceType;
 	private Long tipoUsuario;
+	private String token;
 	
 	public String getLogin() {
 		return login;
@@ -46,6 +47,12 @@ public class UsuarioDTO extends BaseDTO {
 	}
 	public void setTipoUsuario(Long tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

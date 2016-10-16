@@ -1,4 +1,4 @@
-package com.starksoftware.library.security.rest;
+package com.starksoftware.stampyu.rest;
 
 import java.util.ArrayList;
 import java.util.List;
