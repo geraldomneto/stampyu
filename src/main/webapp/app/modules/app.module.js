@@ -37,7 +37,10 @@
          'produtoVendaModule',
          'produtoLojaModule',
          'reclamacaoModule',
-         'representanteModule'
+         'representanteModule',
+         
+         //NOVOS STAMPYU
+         'seloModule'
     ])
     .run(['$rootScope','LoginService','$state','$cookies','$window', 
          function($rootScope,LoginService,$state,$cookies,$window) {

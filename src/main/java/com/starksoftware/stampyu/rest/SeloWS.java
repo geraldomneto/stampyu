@@ -158,6 +158,9 @@ public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
 					selo.setBackgroundColorHexa(dto.getBackgroundColorHexa());					
 				}
 				if (dto.getImagem() != null) {
+					if(dto.getImagem().contains("data:image/png;base64,")) {
+						dto.setImagem(dto.getImagem().replaceAll("data:image/png;base64,", ""));
+					}
 					selo.setImagem(Base64.getDecoder().decode(dto.getImagem()));					
 				}
 				seloFacade.saveOrUpdate(selo);
