@@ -10,7 +10,7 @@ import org.hibernate.Hibernate;
 import com.starksoftware.library.abstracts.model.business.AbstractFacade;
 import com.starksoftware.library.security.model.dao.PerfilDAO;
 import com.starksoftware.library.security.model.entity.Perfil;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @Stateless
 public class PerfilFacade extends AbstractFacade {

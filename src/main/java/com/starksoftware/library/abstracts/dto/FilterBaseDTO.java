@@ -2,7 +2,7 @@ package com.starksoftware.library.abstracts.dto;
 
 import java.util.Date;
 
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 public class FilterBaseDTO implements IDTO {
 

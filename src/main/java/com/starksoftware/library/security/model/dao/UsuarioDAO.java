@@ -13,7 +13,7 @@ import com.starksoftware.library.abstracts.model.dao.BaseDAO;
 import com.starksoftware.library.security.dto.FilterUsuarioDTO;
 import com.starksoftware.library.security.model.entity.Funcionalidade;
 import com.starksoftware.library.security.model.entity.Modulo;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @RequestScoped
 @SuppressWarnings("unchecked")

@@ -1,7 +1,6 @@
 package com.starksoftware.stampyu.rest;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,9 +15,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.starksoftware.library.abstracts.rest.AbstractRest;
-import com.starksoftware.stampyu.dto.SeloDTO;
-import com.starksoftware.stampyu.model.business.SeloFacade;
-import com.starksoftware.stampyu.model.entity.Selo;
+import com.starksoftware.stampyu.dto.NivelExperienciaPomboDTO;
+import com.starksoftware.stampyu.model.business.NivelExperienciaPomboFacade;
+import com.starksoftware.stampyu.model.entity.NivelExperienciaPombo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,27 +25,27 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(value = "selo")
-@Path("/selo")
-public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
+@Api(value = "tipo-postagem")
+@Path("/tipo-postagem")
+public class NivelExperienciaPomboWS extends AbstractRest<NivelExperienciaPomboFacade, NivelExperienciaPomboDTO> {
 	
 	@Inject
-	private SeloFacade seloFacade;
+	private NivelExperienciaPomboFacade nivelExperienciaPomboFacade;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Busca todos os selos")
+	@ApiOperation(value = "Busca todos os níveis de experiência que Pombos podem ter")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), 
 			@ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response getSelo() {
+	public Response get() {
 		try {
-			List<Selo> listSelo = seloFacade.findAll();
-			List<SeloDTO> retorno = new ArrayList<>();
-			for (Selo selo : listSelo) {
-				retorno.add(new SeloDTO(selo));
+			List<NivelExperienciaPombo> list = nivelExperienciaPomboFacade.findAll();
+			List<NivelExperienciaPomboDTO> retorno = new ArrayList<>();
+			for (NivelExperienciaPombo item : list) {
+				retorno.add(new NivelExperienciaPomboDTO(item));
 			}
 			return this.ok(retorno);
 
@@ -59,13 +58,13 @@ public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Busca Selo por id", notes = "Busca por ID")
+	@ApiOperation(value = "Busca NivelExperienciaPombo por id")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), 
 			@ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response getSeloPorId(@ApiParam(value = "id") @PathParam("id") String strId) {
+	public Response getPorId(@ApiParam(value = "id") @PathParam("id") String strId) {
 		try {
 			Long id = null;
 			try {
@@ -73,11 +72,11 @@ public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
 			} catch (Exception ex) {
 				return this.error("Informe um ID numerico válido");
 			}
-			Selo selo = seloFacade.findByPrimaryKey(id);
-			if (selo != null) {
-				return this.ok(new SeloDTO(selo));
+			NivelExperienciaPombo nivelExperienciaPombo = nivelExperienciaPomboFacade.findByPrimaryKey(id);
+			if (nivelExperienciaPombo != null) {
+				return this.ok(new NivelExperienciaPomboDTO(nivelExperienciaPombo));
 			} else {
-				return this.error("Selo não encontrado");
+				return this.error("Nível de Experiência não encontrado");
 			}
 
 		} catch (Exception e) {
@@ -88,33 +87,25 @@ public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Cadastra um novo Selo")
+	@ApiOperation(value = "Cadastra um novo nível de experiência que pombos podem ter")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 201, message = "Criado com sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), 
 			@ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 406, message = "Erro de validação interna"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response cadastraSelo(@ApiParam(value = "JSON", required = true) SeloDTO dto) {
+	public Response post(@ApiParam(value = "JSON", required = true) NivelExperienciaPomboDTO dto) {
 		try {
-			if (dto.getNumeroSerie() == null) {
-				return this.error("Informe o número de série");
+			if (dto.getDescricao() == null) {
+				return this.error("Informe a descrição");
 			}
-			if (dto.getTitulo() == null) {
-				return this.error("Informe o título");
+			if (dto.getVelocidadeKmPorHora() == null) {
+				return this.error("Informe a velocidade");
 			}
-			if (dto.getImagem() == null) {
-				return this.error("Informe a imagem");
-			}
-			Selo selo = new Selo();
-			selo.setNumeroSerie(dto.getNumeroSerie());
-			selo.setTitulo(dto.getTitulo());
-			selo.setBackgroundColorHexa(dto.getBackgroundColorHexa());
-			selo.setImagem(Base64.getDecoder().decode(dto.getImagem()));
-			
-			seloFacade.saveOrUpdate(selo);
+			NivelExperienciaPombo nivelExperienciaPombo = new NivelExperienciaPombo(dto);
+			nivelExperienciaPomboFacade.saveOrUpdate(nivelExperienciaPombo);
 
-			return this.created("Selo cadastrado com sucesso!");
+			return this.created("Nível de experiência cadastrado com sucesso!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return this.internalError(null);
@@ -123,48 +114,32 @@ public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Atualiza atributos do Selo")
+	@ApiOperation(value = "Atualiza atributos do NivelExperienciaPombo")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Sucesso"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 406, message = "Erro de validação interna"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response atualizaSelo(@ApiParam(value = "JSON", required = true) SeloDTO dto) {
+	public Response put(@ApiParam(value = "JSON", required = true) NivelExperienciaPomboDTO dto) {
 		try {
 			if (dto.getId() == null) {
-				return this.error("Informe o id do Selo");
+				return this.error("Informe o id");
 			}
-			if (dto.getNumeroSerie() == null) {
-				return this.error("Informe o número de série");
+			if (dto.getDescricao() == null) {
+				return this.error("Informe a descrição");
 			}
-			if (dto.getTitulo() == null) {
-				return this.error("Informe o título");
+			if (dto.getVelocidadeKmPorHora() == null) {
+				return this.error("Informe a velocidade");
 			}
-			if (dto.getImagem() == null) {
-				return this.error("Informe a imagem");
-			}
+
+			NivelExperienciaPombo nivelExperienciaPombo = nivelExperienciaPomboFacade.findByPrimaryKey(dto.getId());
 			
-			Selo selo = seloFacade.findByPrimaryKey(dto.getId());
-			
-			if (selo == null) {
-				return this.error("Selo não encontrado");
+			if (nivelExperienciaPombo == null) {
+				return this.error("Nível de experiência não encontrado");
 			} else {
-				if (dto.getNumeroSerie() != null) {
-					selo.setNumeroSerie(dto.getNumeroSerie());					
-				}
-				if (dto.getTitulo() != null) {
-					selo.setTitulo(dto.getTitulo());					
-				}
-				if (dto.getBackgroundColorHexa() != null) {
-					selo.setBackgroundColorHexa(dto.getBackgroundColorHexa());					
-				}
-				if (dto.getImagem() != null) {
-					if(dto.getImagem().contains("data:image/png;base64,")) {
-						dto.setImagem(dto.getImagem().replaceAll("data:image/png;base64,", ""));
-					}
-					selo.setImagem(Base64.getDecoder().decode(dto.getImagem()));					
-				}
-				seloFacade.saveOrUpdate(selo);
-				return this.created("Selo atualizado com sucesso!");
+				nivelExperienciaPombo.setDescricao(dto.getDescricao());
+				nivelExperienciaPombo.setVelocidadeKmPorHora(dto.getVelocidadeKmPorHora());
+				nivelExperienciaPomboFacade.saveOrUpdate(nivelExperienciaPombo);
+				return this.created("Nível de experiência atualizado com sucesso!");
 			}
 
 		} catch (Exception e) {
@@ -176,17 +151,17 @@ public class SeloWS extends AbstractRest<SeloFacade, SeloDTO> {
 	@DELETE
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "Exclui um Selo pelo id", notes = "Exclusão é lógica")
+	@ApiOperation(value = "Exclui um NivelExperienciaPombo pelo id", notes = "Exclusão é lógica")
 	@ApiResponses(value = { @ApiResponse(code = 204, message = "No content"),
 			@ApiResponse(code = 401, message = "Não autorizado"), @ApiResponse(code = 403, message = "Acesso negado"),
 			@ApiResponse(code = 500, message = "Erro ao processar sua requisição") })
-	public Response deleteSelo(@ApiParam(value = "ID") @PathParam("id") Long id) {
+	public Response delete(@ApiParam(value = "ID") @PathParam("id") Long id) {
 		try {
-			Selo selo = seloFacade.findByPrimaryKey(id);
-			if (selo == null) {
-				return this.error("Selo não encontrado");
+			NivelExperienciaPombo nivelExperienciaPombo = nivelExperienciaPomboFacade.findByPrimaryKey(id);
+			if (nivelExperienciaPombo == null) {
+				return this.error("Nível de Experiência não encontrado");
 			} else {
-				seloFacade.delete(selo);
+				nivelExperienciaPomboFacade.delete(nivelExperienciaPombo);
 				return this.successWithoutBody();
 			}
 		} catch (Exception e) {

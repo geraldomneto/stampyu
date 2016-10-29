@@ -12,7 +12,7 @@ import com.starksoftware.library.security.dto.FilterUsuarioDTO;
 import com.starksoftware.library.security.model.dao.UsuarioDAO;
 import com.starksoftware.library.security.model.entity.Perfil;
 import com.starksoftware.library.security.model.entity.TipoUsuario;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @Stateless
 public class UsuarioFacade extends AbstractFacade {

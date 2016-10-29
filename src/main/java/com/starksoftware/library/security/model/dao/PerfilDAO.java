@@ -8,7 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import com.starksoftware.library.abstracts.model.dao.BaseDAO;
 import com.starksoftware.library.security.model.entity.Perfil;
 import com.starksoftware.library.security.model.entity.TipoUsuario;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @RequestScoped
 @SuppressWarnings("unchecked")

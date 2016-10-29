@@ -22,11 +22,11 @@ import com.starksoftware.library.security.model.business.Kryptonite;
 import com.starksoftware.library.security.model.business.TokenHandler;
 import com.starksoftware.library.security.model.business.UsuarioFacade;
 import com.starksoftware.library.security.model.entity.PasswordHashedAndSalt;
-import com.starksoftware.library.security.model.entity.Usuario;
 import com.starksoftware.library.security.util.CommonSecurity;
 import com.starksoftware.library.util.ValidatorUtil;
 import com.starksoftware.stampyu.dto.UsuarioDTO;
 import com.starksoftware.stampyu.model.business.LoginFacade;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

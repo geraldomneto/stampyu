@@ -23,8 +23,8 @@ import com.starksoftware.library.security.model.business.ModuloFacade;
 import com.starksoftware.library.security.model.business.UsuarioFacade;
 import com.starksoftware.library.security.model.entity.Funcionalidade;
 import com.starksoftware.library.security.model.entity.Modulo;
-import com.starksoftware.library.security.model.entity.Usuario;
 import com.starksoftware.library.security.model.enumeration.RoleAccess;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

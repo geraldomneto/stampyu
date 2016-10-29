@@ -10,8 +10,8 @@ import com.starksoftware.library.security.model.business.PerfilFacade;
 import com.starksoftware.library.security.model.business.UsuarioFacade;
 import com.starksoftware.library.security.model.dao.UsuarioDAO;
 import com.starksoftware.library.security.model.entity.Perfil;
-import com.starksoftware.library.security.model.entity.Usuario;
 import com.starksoftware.stampyu.dto.UsuarioDTO;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @Stateless
 public class LoginFacade extends AbstractFacade {

@@ -13,7 +13,7 @@ import com.starksoftware.library.security.model.dao.FuncionalidadeDAO;
 import com.starksoftware.library.security.model.entity.Funcionalidade;
 import com.starksoftware.library.security.model.entity.Modulo;
 import com.starksoftware.library.security.model.entity.Perfil;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @Stateless
 public class FuncionalidadeFacade extends AbstractFacade {

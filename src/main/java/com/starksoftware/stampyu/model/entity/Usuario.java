@@ -1,5 +1,5 @@
 
-package com.starksoftware.library.security.model.entity;
+package com.starksoftware.stampyu.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import com.starksoftware.library.abstracts.model.entity.EntidadeDominioBase;
+import com.starksoftware.library.security.model.entity.Perfil;
+import com.starksoftware.library.security.model.entity.TipoUsuario;
+import com.starksoftware.library.security.model.entity.TipoUsuarioEnum;
 import com.starksoftware.library.security.model.enumeration.RoleAccess;
 
 @Entity

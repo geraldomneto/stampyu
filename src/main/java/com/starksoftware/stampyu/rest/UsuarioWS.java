@@ -26,7 +26,7 @@ import com.starksoftware.library.security.model.business.Kryptonite;
 import com.starksoftware.library.security.model.business.PerfilFacade;
 import com.starksoftware.library.security.model.business.UsuarioFacade;
 import com.starksoftware.library.security.model.entity.TipoUsuario;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

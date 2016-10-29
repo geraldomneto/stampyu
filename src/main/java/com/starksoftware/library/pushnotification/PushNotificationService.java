@@ -17,7 +17,7 @@ import javax.jms.Queue;
 import javax.jms.Session;
 
 import com.starksoftware.library.abstracts.model.enumeration.ChavePushEnum;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @Stateless
 public class PushNotificationService {

@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import com.starksoftware.library.abstracts.model.business.AbstractFacade;
 import com.starksoftware.library.security.model.dao.ModuloDAO;
 import com.starksoftware.library.security.model.entity.Modulo;
-import com.starksoftware.library.security.model.entity.Usuario;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @Stateless
 public class ModuloFacade extends AbstractFacade {

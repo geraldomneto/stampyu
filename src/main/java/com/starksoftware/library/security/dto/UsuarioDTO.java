@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.starksoftware.library.abstracts.dto.BaseDTO;
 import com.starksoftware.library.security.model.entity.Perfil;
 import com.starksoftware.library.security.model.entity.TipoUsuarioEnum;
-import com.starksoftware.library.security.model.entity.Usuario;
 import com.starksoftware.library.security.model.enumeration.RoleAccess;
+import com.starksoftware.stampyu.model.entity.Usuario;
 
 @JsonInclude(Include.NON_NULL)
 public class UsuarioDTO extends BaseDTO {
